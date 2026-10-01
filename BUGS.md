@@ -29,3 +29,20 @@
 | Por qué fallaba | Se modificaba la misma lista con add(), por lo que StateFlow no detectaba el cambio. |
 | Cómo lo corregí | Se creó una lista nueva y se reasignó a _cartItems.value. |
 | Commit | fix: actualizar carrito al primer toque |
+
+
+
+
+
+## Error 3
+
+| Campo | Tu respuesta |
+|---|---|
+| Prueba que lo detectó | T3 |
+| Qué pasaba | El subtotal y total mostraban $1803 para 3 cafés de $1800. |
+| Qué esperaba | Que mostrara $5400. |
+| Cómo lo encontré | Revisando el cálculo de subtotal. |
+| Archivo y función | CartItem.kt, propiedad subtotal |
+| Por qué fallaba | Se sumaba el precio con la cantidad en vez de multiplicarlos. |
+| Cómo lo corregí | Cambié + por *. |
+| Commit | fix: corregir calculo de subtotal |
