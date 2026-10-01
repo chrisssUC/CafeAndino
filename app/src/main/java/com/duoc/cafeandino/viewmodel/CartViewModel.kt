@@ -51,12 +51,18 @@ class CartViewModel : ViewModel() {
     }
 
     fun decreaseQuantity(itemId: Int) {
+// bug corregido: si la cantidad llega a 1, se elimina el producto del carrito en vez de dejarlo solo en 0
         _cartItems.value = _cartItems.value
-            .map {
-                if (it.item.id == itemId)
-                    it.copy(quantity = it.quantity - 1)
-                else
-                    it
+            .mapNotNull { cartItem ->
+                if (cartItem.item.id == itemId) {
+                    if (cartItem.quantity <= 1) {
+                        null
+                    } else {
+                        cartItem.copy(quantity = cartItem.quantity - 1)
+                    }
+                } else {
+                    cartItem
+                }
             }
             .toMutableList()
     }

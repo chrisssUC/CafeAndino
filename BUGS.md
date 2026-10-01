@@ -46,3 +46,23 @@
 | Por qué fallaba | Se sumaba el precio con la cantidad en vez de multiplicarlos. |
 | Cómo lo corregí | Cambié + por *. |
 | Commit | fix: corregir calculo de subtotal |
+
+
+
+
+
+
+
+
+## Error 4
+
+| Campo | Tu respuesta |
+|---|---|
+| Prueba que lo detectó | T6 |
+| Qué pasaba | Al bajar un producto de cantidad 1, quedaba en 0. |
+| Qué esperaba | Que el producto desapareciera del carrito. |
+| Cómo lo encontré | Probando el botón "-" y revisando CartViewModel.kt. |
+| Archivo y función | CartViewModel.kt, decreaseQuantity |
+| Por qué fallaba | Siempre restaba 1 sin eliminar el producto cuando llegaba a 0. |
+| Cómo lo corregí | Se elimina la línea cuando la cantidad es 1. |
+| Commit | fix: eliminar producto al llegar a cero |
