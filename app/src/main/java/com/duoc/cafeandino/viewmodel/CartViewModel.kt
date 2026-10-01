@@ -39,13 +39,15 @@ class CartViewModel : ViewModel() {
         }
     }
 
+    //reto segun mi rut  limite por producto maximo 5 productos no se puede agregar mas desde el carrito ni desde el menu
     fun increaseQuantity(itemId: Int) {
         _cartItems.value = _cartItems.value
             .map {
-                if (it.item.id == itemId)
+                if (it.item.id == itemId && it.quantity < 5) {
                     it.copy(quantity = it.quantity + 1)
-                else
+                } else {
                     it
+                }
             }
             .toMutableList()
     }

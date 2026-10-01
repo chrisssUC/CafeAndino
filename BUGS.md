@@ -112,3 +112,25 @@
 | Por qué fallaba | Se guardaba el nombre, pero no se vaciaba el carrito. |
 | Cómo lo corregí | Se agregó clearCart() al confirmar. |
 | Commit | fix: vaciar carrito al confirmar pedido |
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Reto propio
+
+| Campo | Tu respuesta |
+|---|---|
+| Reto asignado | Reto A: límite por producto |
+| Qué debía hacer | No permitir más de 5 unidades por producto. |
+| Archivo modificado | CartViewModel.kt |
+| Por qué lo hice ahí | Porque ese ViewModel controla las cantidades del carrito. |
+| Cómo lo resolví | Se agregó la validación `it.quantity < 5` en `increaseQuantity()`. |
