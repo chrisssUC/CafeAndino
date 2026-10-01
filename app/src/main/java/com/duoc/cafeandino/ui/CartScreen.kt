@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,8 +19,9 @@ import com.duoc.cafeandino.R
 import com.duoc.cafeandino.model.CartItem
 import com.duoc.cafeandino.model.MenuItem
 import com.duoc.cafeandino.viewmodel.CartViewModel
+import androidx.compose.runtime.saveable.rememberSaveable
 
-// Esta función conoce al ViewModel
+
 @Composable
 fun CartScreen(
     cartViewModel: CartViewModel,
@@ -43,7 +43,7 @@ fun CartScreen(
     )
 }
 
-// Esta función NO conoce al ViewModel: solo dibuja lo que recibe
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreenContent(
@@ -56,7 +56,8 @@ fun CartScreenContent(
     onCheckoutClick: () -> Unit,
     onBack: () -> Unit
 ) {
-    var showClearDialog by remember { mutableStateOf(false) }
+// bug corregido: se usa rememberSaveable para conservar el mensaje al girar la pantalla.
+    var showClearDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {

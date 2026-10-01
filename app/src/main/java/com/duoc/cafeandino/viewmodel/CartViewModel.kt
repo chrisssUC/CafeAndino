@@ -80,5 +80,7 @@ class CartViewModel : ViewModel() {
 
     fun confirmOrder(customerName: String) {
         _lastCustomerName.value = customerName
+        clearCart()
+ // bug corregido: al confirmar el pedido se debe vaciar el carrito y no conservar los productos que agregaste anteriormente.
     }
 }

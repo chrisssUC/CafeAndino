@@ -66,3 +66,49 @@
 | Por qué fallaba | Siempre restaba 1 sin eliminar el producto cuando llegaba a 0. |
 | Cómo lo corregí | Se elimina la línea cuando la cantidad es 1. |
 | Commit | fix: eliminar producto al llegar a cero |
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Error 5
+
+| Campo | Tu respuesta                                                         |
+|---|----------------------------------------------------------------------|
+| Prueba que lo detectó | T7                                                                   |
+| Qué pasaba | Al girar el celular, el mensaje "Vaciar carrito" desaparecía.        |
+| Qué esperaba | Que el diálogo siguiera abierto después de rotar.                    |
+| Cómo lo encontré | Probando la rotación del emulador.                                   |
+| Archivo y función | CartScreen.kt, CartScreenContent                                     |
+| Por qué fallaba | Se usaba remember, que no conserva el estado al recrear la pantalla. |
+| Cómo lo corregí | Se cambió remember por rememberSaveable.                             |
+| Commit | fix: conservar dialogo al rotar                                      |
+
+
+
+
+
+
+
+
+
+## Error 6
+
+| Campo | Tu respuesta |
+|---|---|
+| Prueba que lo detectó | T9 |
+| Qué pasaba | Después de confirmar, el carrito seguía con productos. |
+| Qué esperaba | Que el carrito quedara en 0. |
+| Cómo lo encontré | Revisando confirmOrder en CartViewModel.kt. |
+| Archivo y función | CartViewModel.kt, confirmOrder |
+| Por qué fallaba | Se guardaba el nombre, pero no se vaciaba el carrito. |
+| Cómo lo corregí | Se agregó clearCart() al confirmar. |
+| Commit | fix: vaciar carrito al confirmar pedido |
