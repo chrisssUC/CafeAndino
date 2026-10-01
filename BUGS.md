@@ -12,3 +12,20 @@
 | Por qué fallaba | Se navegaba a "carrito", pero la ruta correcta era "cart". |
 | Cómo lo corregí | Cambié la navegación a Routes.CART. |
 | Commit | fix: corregir ruta del carrito |
+
+
+
+
+
+## Error 2
+
+| Campo | Tu respuesta |
+|---|---|
+| Prueba que lo detectó | T2 |
+| Qué pasaba | Al tocar "Agregar" una vez, el contador no cambiaba. Al tocar por segunda vez recién aparecía 2. |
+| Qué esperaba | Que al primer toque mostrara 1 inmediatamente. |
+| Cómo lo encontré | Revisando CartViewModel.kt. |
+| Archivo y función | CartViewModel.kt, addItem |
+| Por qué fallaba | Se modificaba la misma lista con add(), por lo que StateFlow no detectaba el cambio. |
+| Cómo lo corregí | Se creó una lista nueva y se reasignó a _cartItems.value. |
+| Commit | fix: actualizar carrito al primer toque |

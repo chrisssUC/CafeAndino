@@ -31,9 +31,9 @@ class CartViewModel : ViewModel() {
         val existing = _cartItems.value.firstOrNull { it.item.id == menuItem.id }
 
         if (existing == null) {
-            _cartItems.value.add(
-                CartItem(menuItem, 1)
-            )
+ // bug corregido: creo una lista nueva para que StateFlow detecte el cambio enseguida
+            _cartItems.value = (_cartItems.value + CartItem(menuItem, 1)).toMutableList()
+
         } else {
             increaseQuantity(menuItem.id)
         }
