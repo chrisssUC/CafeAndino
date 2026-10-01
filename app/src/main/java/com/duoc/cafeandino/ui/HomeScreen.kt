@@ -26,6 +26,7 @@ fun HomeScreen(
     homeViewModel: HomeViewModel,
     cartViewModel: CartViewModel,
     onProductClick: (Int) -> Unit,
+    onCartClick: () -> Unit,
     onCheckoutClick: () -> Unit
 ) {
     val menuItems by homeViewModel.menuItems.collectAsState()
@@ -36,8 +37,11 @@ fun HomeScreen(
         menuItems = menuItems,
         orderCount = orderCount,
         lastCustomerName = lastCustomerName,
-        onAdd = { cartViewModel.addOrder() },
+        onAdd = { menuItem ->
+            cartViewModel.addItem(menuItem)
+        },
         onProductClick = onProductClick,
+        onCartClick = onCartClick,
         onCheckoutClick = onCheckoutClick
     )
 }
@@ -48,8 +52,9 @@ fun HomeScreenContent(
     menuItems: List<MenuItem>,
     orderCount: Int,
     lastCustomerName: String?,
-    onAdd: () -> Unit,
+    onAdd: (MenuItem) -> Unit,
     onProductClick: (Int) -> Unit,
+    onCartClick: () -> Unit,
     onCheckoutClick: () -> Unit
 ) {
     Scaffold(
@@ -80,12 +85,25 @@ fun HomeScreenContent(
                 )
             }
 
-            Button(
-                onClick = onCheckoutClick,
-                enabled = orderCount > 0,
-                modifier = Modifier.fillMaxWidth()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text("Confirmar pedido")
+
+                OutlinedButton(
+                    onClick = onCartClick,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Ver carrito")
+                }
+
+                Button(
+                    onClick = onCheckoutClick,
+                    enabled = orderCount > 0,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Confirmar pedido")
+                }
             }
 
             LazyColumn(
@@ -95,7 +113,9 @@ fun HomeScreenContent(
 
                     MenuItemCard(
                         item = item,
-                        onAdd = onAdd,
+                        onAdd = {
+                            onAdd(item)
+                        },
                         onClick = {
                             onProductClick(item.id)
                         }
@@ -112,20 +132,23 @@ fun MenuItemCard(
     onAdd: () -> Unit,
     onClick: () -> Unit
 ) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
                 onClick()
             }
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(
+                MaterialTheme.colorScheme.surfaceVariant
+            )
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         Image(
-            painter = painterResource(id = item.imageRes),
+            painter = painterResource(
+                id = item.imageRes
+            ),
             contentDescription = item.name,
             modifier = Modifier.size(56.dp)
         )
@@ -175,7 +198,6 @@ fun HomeScreenPreview() {
                 1800,
                 R.drawable.logo
             ),
-
             MenuItem(
                 2,
                 "Cappuccino",
@@ -184,11 +206,11 @@ fun HomeScreenPreview() {
                 R.drawable.logo
             )
         ),
-
         orderCount = 2,
         lastCustomerName = null,
         onAdd = {},
         onProductClick = {},
+        onCartClick = {},
         onCheckoutClick = {}
     )
 }

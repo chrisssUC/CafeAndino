@@ -7,6 +7,9 @@ object Routes {
     const val PRODUCT_DETAIL =
         "productDetail/{productId}"
 
+    const val CART =
+        "cart"
+
     const val CHECKOUT =
         "checkout"
 
